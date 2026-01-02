@@ -346,5 +346,5 @@ This project demonstrates **production-grade test automation** with:
 ---
 
 **Last Updated**: January 2, 2026  
-**Maintained by**: Your Team  
+**Maintained by**: Marwan Sultan
 **Status**: ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
