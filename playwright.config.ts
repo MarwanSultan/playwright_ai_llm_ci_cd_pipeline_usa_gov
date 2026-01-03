@@ -20,7 +20,7 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
 
   /* Workers: use 50% of CPUs locally, or 10 on CI */
-  workers: process.env.CI ? 4 : 4,
+  workers: process.env.CI ? 10 : 4,
 
   /* Reporter to use */
   reporter: [['html', { outputFolder: 'playwright-report', open: 'never' }]],
