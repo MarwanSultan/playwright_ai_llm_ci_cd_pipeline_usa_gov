@@ -164,7 +164,68 @@ Tests automatically run on:
 - Push to `main` or `develop`
 - Pull requests
 - Daily at 2 AM UTC
+## 🤖 Using AI Agents for Test Development
 
+This project integrates with AI agents to streamline test creation, debugging, and maintenance. You can leverage AI assistants to:
+
+### **Playwright Test Generator**
+Use when you need to create automated browser tests for new features or user flows:
+```
+Request: "Create a test for the job search filter functionality"
+Result: Generated test file with proper setup, selectors, and assertions
+```
+
+### **Playwright Test Healer**
+Use when tests are failing and you need help debugging and fixing issues:
+```
+Request: "Fix failing search tests that timeout on result validation"
+Result: Diagnosed the issue (e.g., slow selectors, missing waits) and provided fixes
+```
+
+### **Playwright Test Planner**
+Use when planning comprehensive test coverage for new features:
+```
+Request: "Create a test plan for form validation with all input types"
+Result: Detailed test plan with step-by-step scenarios and expected results
+```
+
+### Getting Started with AI Agents
+
+1. **Open this project** in your IDE with AI agent support
+2. **Describe what you need**:
+   - "Create tests for [feature]"
+   - "Fix failing test: [test name]"
+   - "Plan tests for [user workflow]"
+3. **Review generated code** - AI agents produce working code that may need adjustments for your specific case
+4. **Run tests** - Verify with `npm test` before committing
+
+### Best Practices with AI Agents
+
+- ✅ Be specific about requirements and expected behavior
+- ✅ Provide context about the feature you're testing
+- ✅ Review generated tests for accuracy and style compliance
+- ✅ Test locally before committing AI-generated code
+- ✅ Provide feedback to refine results on subsequent requests
+- ❌ Don't blindly accept generated code without review
+- ❌ Don't commit untested AI-generated code
+
+### Example Workflow
+
+```bash
+# 1. Use AI to generate test for new search feature
+# Request: "Create a test for advanced search with filters"
+
+# 2. Place generated test in tests/
+# 3. Run locally to verify
+npm test tests/search.test.ts
+
+# 4. If tests fail, use AI Healer
+# Request: "Fix failing advanced search test"
+
+# 5. Review fixes and commit
+git add tests/search.test.ts
+git commit -m "test: add advanced search filter tests"
+```
 ## 🔐 Security Best Practices
 
 ### Implemented
