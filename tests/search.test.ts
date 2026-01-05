@@ -17,27 +17,20 @@ test.describe('Search Functionality Tests', () => {
     const searchQuery = 'passport';
     console.log(`Testing search with keyword: "${searchQuery}"`);
 
-    // Locate search input - try multiple selectors for robustness, including visible ones
-    let searchInput = page.locator(
-      'input[type="search"]:visible, input[placeholder*="Search"]:visible, input[aria-label*="Search"]:visible'
-    ).first();
+    // Locate search input - skip the hidden mobile menu search input
+    let searchInputs = page.locator('input[type="search"]:not(#search-field-small-mobile-menu)');
+    let searchInput = searchInputs.first();
     
-    // If no visible search input, try finding any search input (may need scrolling)
-    let inputCount = await searchInput.count();
-    if (inputCount === 0) {
-      searchInput = page.locator(
-        'input[type="search"], input[placeholder*="Search"], input[aria-label*="Search"]'
-      ).first();
+    // Wait for search input to be attached
+    const count = await searchInputs.count();
+    if (count === 0) {
+      // Fallback to any search input if the specific one doesn't exist
+      searchInput = page.locator('input[type="search"]').first();
     }
     
-    // Wait for search input to be available
     await searchInput.waitFor({ state: 'attached', timeout: 5000 });
     
-    // Scroll into view if needed
-    await searchInput.scrollIntoViewIfNeeded();
-    
-    // Fill search input
-    await searchInput.click();
+    // Fill search input directly
     await searchInput.fill(searchQuery);
     
     // Wait for input value to be set
@@ -54,7 +47,7 @@ test.describe('Search Functionality Tests', () => {
     }
     
     // Wait for results page to load
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
     
     // Verify page title changed or URL changed (indicating navigation)
     const pageUrl = page.url();
@@ -78,21 +71,17 @@ test.describe('Search Functionality Tests', () => {
     const searchQuery = 'benefits';
     console.log(`Testing search result relevance for: "${searchQuery}"`);
 
-    // Navigate to search - find visible input
-    let searchInput = page.locator(
-      'input[type="search"]:visible, input[placeholder*="Search"]:visible, input[aria-label*="Search"]:visible'
-    ).first();
+    // Navigate to search - skip hidden mobile menu input
+    let searchInputs = page.locator('input[type="search"]:not(#search-field-small-mobile-menu)');
+    let searchInput = searchInputs.first();
     
-    // If no visible input found, try all and scroll into view
-    if (await searchInput.count() === 0) {
-      searchInput = page.locator(
-        'input[type="search"], input[placeholder*="Search"], input[aria-label*="Search"]'
-      ).first();
-      await searchInput.scrollIntoViewIfNeeded();
+    const count = await searchInputs.count();
+    if (count === 0) {
+      searchInput = page.locator('input[type="search"]').first();
     }
     
     await searchInput.waitFor({ state: 'attached', timeout: 5000 });
-    await searchInput.click();
+    
     await searchInput.fill(searchQuery);
     
     // Submit search
@@ -125,19 +114,16 @@ test.describe('Search Functionality Tests', () => {
   });
 
   test('Verify search input validates empty queries', async ({ page }) => {
-    let searchInput = page.locator(
-      'input[type="search"]:visible, input[placeholder*="Search"]:visible, input[aria-label*="Search"]:visible'
-    ).first();
+    let searchInputs = page.locator('input[type="search"]:not(#search-field-small-mobile-menu)');
+    let searchInput = searchInputs.first();
     
-    if (await searchInput.count() === 0) {
-      searchInput = page.locator(
-        'input[type="search"], input[placeholder*="Search"], input[aria-label*="Search"]'
-      ).first();
-      await searchInput.scrollIntoViewIfNeeded();
+    const count = await searchInputs.count();
+    if (count === 0) {
+      searchInput = page.locator('input[type="search"]').first();
     }
     
     await searchInput.waitFor({ state: 'attached', timeout: 5000 });
-    
+
     // Verify we can clear the input
     await searchInput.click();
     await searchInput.fill('test');
@@ -151,20 +137,18 @@ test.describe('Search Functionality Tests', () => {
       console.log(`Testing search: ${searchItem.query}`);
       
       // Go back to home for fresh search
-      await page.goto('/', { waitUntil: 'networkidle' });
+      await page.goto('/', { waitUntil: 'domcontentloaded' });
       
-      let searchInput = page.locator(
-        'input[type="search"]:visible, input[placeholder*="Search"]:visible, input[aria-label*="Search"]:visible'
-      ).first();
+      let searchInputs = page.locator('input[type="search"]:not(#search-field-small-mobile-menu)');
+      let searchInput = searchInputs.first();
       
-      if (await searchInput.count() === 0) {
-        searchInput = page.locator(
-          'input[type="search"], input[placeholder*="Search"], input[aria-label*="Search"]'
-        ).first();
-        await searchInput.scrollIntoViewIfNeeded();
+      const count = await searchInputs.count();
+      if (count === 0) {
+        searchInput = page.locator('input[type="search"]').first();
       }
       
       await searchInput.waitFor({ state: 'attached', timeout: 5000 });
+      
       await searchInput.fill(searchItem.query);
       
       const searchButton = page.locator('button[type="submit"]').first();
