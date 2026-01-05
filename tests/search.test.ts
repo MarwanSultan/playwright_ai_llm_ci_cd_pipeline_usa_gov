@@ -12,6 +12,19 @@ test.describe('Search Functionality Tests', () => {
     await page.goto('/', { waitUntil: 'domcontentloaded', timeout: 45000 });
   });
 
+  test.afterEach(async ({ page, context }) => {
+    try {
+      await page.close();
+    } catch (e) {
+      // Page may already be closed
+    }
+    try {
+      await context.close();
+    } catch (e) {
+      // Context may already be closed
+    }
+  });
+
   test('Verify keyword search returns relevant results', async ({ page }) => {
     const searchQuery = 'passport';
     console.log(`Testing search with keyword: "${searchQuery}"`);

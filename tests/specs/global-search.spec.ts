@@ -6,6 +6,19 @@ test.describe('USA.gov Core Functionality Tests', () => {
     await page.goto('/', { waitUntil: 'domcontentloaded' });
   });
 
+  test.afterEach(async ({ page, context }) => {
+    try {
+      await page.close();
+    } catch (e) {
+      // Page may already be closed
+    }
+    try {
+      await context.close();
+    } catch (e) {
+      // Context may already be closed
+    }
+  });
+
   // Test 1: Homepage loads
   test('Homepage should load with content', async ({ page }) => {
     const url = page.url();
