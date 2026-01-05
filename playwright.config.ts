@@ -59,7 +59,6 @@ export default defineConfig({
     //   use: { ...devices['iPhone 12'] },
     // },
   ],
-
   /* Optional: start a local dev server before tests */
   // webServer: {
   //   command: 'npm run start',
