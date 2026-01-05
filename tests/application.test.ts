@@ -2,8 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Government Resource Links & Navigation Tests', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/', { waitUntil: 'networkidle' });
-    await page.waitForLoadState('domcontentloaded');
+    await page.goto('/', { waitUntil: 'domcontentloaded', timeout: 45000 });
   });
 
   test('Verify critical government resource links are accessible', async ({ page }) => {

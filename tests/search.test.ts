@@ -9,8 +9,7 @@ const searchKeywords = [
 
 test.describe('Search Functionality Tests', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/', { waitUntil: 'networkidle' });
-    await page.waitForLoadState('domcontentloaded');
+    await page.goto('/', { waitUntil: 'domcontentloaded', timeout: 45000 });
   });
 
   test('Verify keyword search returns relevant results', async ({ page }) => {

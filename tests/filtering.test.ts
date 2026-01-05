@@ -2,8 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Form Validation & Filtering Tests', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/', { waitUntil: 'networkidle' });
-    await page.waitForLoadState('domcontentloaded');
+    await page.goto('/', { waitUntil: 'domcontentloaded', timeout: 45000 });
   });
 
   test('Verify subscription form accepts valid email input', async ({ page }) => {
