@@ -17,8 +17,8 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
-  /* Workers: use 50% of CPUs locally, or 10 on CI */
-  workers: process.env.CI ? 50 : 10,
+  /* Workers: use 50% of CPUs locally, or 5 on CI */
+  workers: process.env.CI ? 5 : 10,
   /* Reporter to use */
   reporter: [["html", { outputFolder: "playwright-report", open: "never" }]],
   /* Shared settings for all the projects */
@@ -54,7 +54,7 @@ export default defineConfig({
       name: "webkit",
       use: { ...devices["Desktop Safari"] },
     },
-    
+
     // /* Optional mobile projects */
     // {
     //   name: 'Mobile Chrome',
