@@ -6,6 +6,7 @@ test.describe('USA.gov Core Functionality Tests', () => {
     await page.goto('/', { waitUntil: 'domcontentloaded' });
   });
 
+
   // Test 1: Homepage loads
   test('Homepage should load with content', async ({ page }) => {
     const url = page.url();

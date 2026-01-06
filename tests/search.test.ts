@@ -9,8 +9,7 @@ const searchKeywords = [
 
 test.describe('Search Functionality Tests', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/', { waitUntil: 'networkidle' });
-    await page.waitForLoadState('domcontentloaded');
+    await page.goto('/', { waitUntil: 'domcontentloaded', timeout: 45000 });
   });
 
   test('Verify keyword search returns relevant results', async ({ page }) => {
@@ -47,7 +46,7 @@ test.describe('Search Functionality Tests', () => {
     }
     
     // Wait for results page to load
-    await page.waitForLoadState('domcontentloaded');
+    await page.waitForLoadState('load');
     
     // Verify page title changed or URL changed (indicating navigation)
     const pageUrl = page.url();
@@ -80,7 +79,7 @@ test.describe('Search Functionality Tests', () => {
       searchInput = page.locator('input[type="search"]').first();
     }
     
-    await searchInput.waitFor({ state: 'attached', timeout: 5000 });
+    await searchInput.waitFor({ state: 'visible', timeout: 10000 });
     
     await searchInput.fill(searchQuery);
     
@@ -94,7 +93,7 @@ test.describe('Search Functionality Tests', () => {
       await searchInput.press('Enter');
     }
     
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('load');
     
     // Verify results are returned
     const resultLinks = page.locator('a[href*="/"]');
@@ -122,7 +121,7 @@ test.describe('Search Functionality Tests', () => {
       searchInput = page.locator('input[type="search"]').first();
     }
     
-    await searchInput.waitFor({ state: 'attached', timeout: 5000 });
+    await searchInput.waitFor({ state: 'visible', timeout: 10000 });
 
     // Verify we can clear the input
     await searchInput.click();
@@ -147,7 +146,7 @@ test.describe('Search Functionality Tests', () => {
         searchInput = page.locator('input[type="search"]').first();
       }
       
-      await searchInput.waitFor({ state: 'attached', timeout: 5000 });
+      await searchInput.waitFor({ state: 'visible', timeout: 10000 });
       
       await searchInput.fill(searchItem.query);
       
@@ -160,7 +159,7 @@ test.describe('Search Functionality Tests', () => {
         await searchInput.press('Enter');
       }
       
-      await page.waitForLoadState('networkidle');
+      await page.waitForLoadState('load');
       
       // Verify results
       const resultElements = page.locator('a[href]');
