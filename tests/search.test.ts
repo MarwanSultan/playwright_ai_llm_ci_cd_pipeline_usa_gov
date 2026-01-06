@@ -79,7 +79,7 @@ test.describe('Search Functionality Tests', () => {
       searchInput = page.locator('input[type="search"]').first();
     }
     
-    await searchInput.waitFor({ state: 'attached', timeout: 5000 });
+    await searchInput.waitFor({ state: 'visible', timeout: 10000 });
     
     await searchInput.fill(searchQuery);
     
@@ -121,7 +121,7 @@ test.describe('Search Functionality Tests', () => {
       searchInput = page.locator('input[type="search"]').first();
     }
     
-    await searchInput.waitFor({ state: 'attached', timeout: 5000 });
+    await searchInput.waitFor({ state: 'visible', timeout: 10000 });
 
     // Verify we can clear the input
     await searchInput.click();
@@ -146,7 +146,7 @@ test.describe('Search Functionality Tests', () => {
         searchInput = page.locator('input[type="search"]').first();
       }
       
-      await searchInput.waitFor({ state: 'attached', timeout: 5000 });
+      await searchInput.waitFor({ state: 'visible', timeout: 10000 });
       
       await searchInput.fill(searchItem.query);
       
