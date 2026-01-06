@@ -54,6 +54,7 @@ export default defineConfig({
       name: "webkit",
       use: { ...devices["Desktop Safari"] },
     },
+    
     // /* Optional mobile projects */
     // {
     //   name: 'Mobile Chrome',
