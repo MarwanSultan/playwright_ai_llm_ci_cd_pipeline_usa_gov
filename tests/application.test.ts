@@ -5,19 +5,6 @@ test.describe('Government Resource Links & Navigation Tests', () => {
     await page.goto('/', { waitUntil: 'domcontentloaded', timeout: 45000 });
   });
 
-  test.afterEach(async ({ page, context }) => {
-    try {
-      await page.close();
-    } catch (e) {
-      // Page may already be closed
-    }
-    try {
-      await context.close();
-    } catch (e) {
-      // Context may already be closed
-    }
-  });
-
   test('Verify critical government resource links are accessible', async ({ page }) => {
     // Define critical resources to verify
     const criticalResources = [

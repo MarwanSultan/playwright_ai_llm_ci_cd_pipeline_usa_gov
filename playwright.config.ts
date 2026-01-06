@@ -33,7 +33,7 @@ export default defineConfig({
   /* Match all test files recursively in the testDir */
   testMatch: ["**/*.spec.ts", "**/*.test.ts", "**/*.spec.js", "**/*.test.js"],
 
-  timeout: 60000,
+  timeout: 30000,
 
   /* Timeout configuration for hooks and tests */
   expect: {

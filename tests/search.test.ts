@@ -12,19 +12,6 @@ test.describe('Search Functionality Tests', () => {
     await page.goto('/', { waitUntil: 'domcontentloaded', timeout: 45000 });
   });
 
-  test.afterEach(async ({ page, context }) => {
-    try {
-      await page.close();
-    } catch (e) {
-      // Page may already be closed
-    }
-    try {
-      await context.close();
-    } catch (e) {
-      // Context may already be closed
-    }
-  });
-
   test('Verify keyword search returns relevant results', async ({ page }) => {
     const searchQuery = 'passport';
     console.log(`Testing search with keyword: "${searchQuery}"`);
@@ -59,7 +46,7 @@ test.describe('Search Functionality Tests', () => {
     }
     
     // Wait for results page to load
-    await page.waitForLoadState('domcontentloaded');
+    await page.waitForLoadState('load');
     
     // Verify page title changed or URL changed (indicating navigation)
     const pageUrl = page.url();
@@ -106,7 +93,7 @@ test.describe('Search Functionality Tests', () => {
       await searchInput.press('Enter');
     }
     
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('load');
     
     // Verify results are returned
     const resultLinks = page.locator('a[href*="/"]');
@@ -172,7 +159,7 @@ test.describe('Search Functionality Tests', () => {
         await searchInput.press('Enter');
       }
       
-      await page.waitForLoadState('networkidle');
+      await page.waitForLoadState('load');
       
       // Verify results
       const resultElements = page.locator('a[href]');
